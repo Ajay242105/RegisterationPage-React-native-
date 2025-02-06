@@ -2,7 +2,9 @@ import { View, Text, SafeAreaView, ScrollView, StatusBar } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router';
 import CustomButton from '../components/CustomButton'
-const index = () => {
+import { useGlobalContext } from '../context/GlobalProvider';
+export default function App(){
+    const {isLoading,isLoggedIn}=useGlobalContext();
     return (
         <SafeAreaView className="bg-black h-full">
             <ScrollView contentContainerStyle={{ height: '100%' }}>
@@ -25,4 +27,3 @@ const index = () => {
     )
 }
 
-export default index

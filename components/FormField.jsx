@@ -17,8 +17,32 @@ const FormField = ({
       <Text className="text-base text-gray-100 font-pmedium">{title}</Text>
 
       <View className="w-full h-16 px-4 bg-black-50 rounded-2xl border-2 border-yellow-200 flex flex-row items-center">
+      {title === 'Username' && (
+          <Image
+            source={icons.profile}  
+            style={{
+              width: 20,
+              height: 20,
+              resizeMode: 'contain',
+              marginRight: 10, 
+               }}
+          />
+        )}
+
+{title === 'Email' && (
+          <Image 
+            source={icons.mail}  
+            style={{
+              width: 20,
+              height: 20,
+              resizeMode: 'contain',
+              marginRight: 10, 
+               }}
+               className="opacity-30"
+          />
+        )}
         <TextInput
-          className="flex-1 text-white font-psemibold text-base"
+          className="flex-1 text-black-100 font-psemibold text-base"
           value={value}
           placeholder={placeholder}
           placeholderTextColor="#7B7B8B"
@@ -26,9 +50,21 @@ const FormField = ({
           secureTextEntry={title === 'Password' && !showPassword}
           {...props}
         />
-        {title === 'Password' && (
+      
+
+        
+               {title === 'Password' && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <Image source={!showPassword?icons.eye:icons.eyeHide} className="w-6 h-6" />
+            <Image
+              source={!showPassword ? icons.eye : icons.eyeHide}
+              style={{
+                width: 20,  
+                height: 20, 
+                resizeMode: 'contain',  
+                borderRadius: 10,  
+                padding: 4, 
+              }}
+            />
           </TouchableOpacity>
         )}
 
