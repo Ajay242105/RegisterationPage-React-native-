@@ -12,13 +12,14 @@ import { songsList } from '../../constants/Songs';
 import { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import TrackPlayer, { Capability, State, usePlaybackState, useProgress } from 'react-native-track-player';
+import SongPlayer from '../../components/SongPlayer';
+
 
 const HomeScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const playbackState = usePlaybackState();
   const progress = useProgress();
   const [isVisible, setIsVisible] = useState(false)
-
 
   useEffect(() => {
     setupPlayer();
@@ -51,19 +52,19 @@ const HomeScreen = () => {
       await TrackPlayer.play();
     }
   };
-  //continue play one by one
+
   useEffect(() => {
-    if (State.Playing == State.playbackState) {
-      if (progress.position.toFixed(0) == progress.duration.toFixed(0)) {
-        if (currentIndex < songsList.length) {
+    if (State.Playing === playbackState) {
+      if (progress.position.toFixed(0) === progress.duration.toFixed(0)) {
+        if (currentIndex < songsList.length - 1) {
           setCurrentIndex(currentIndex + 1);
         }
       }
     }
-  })
+  }, [progress, currentIndex, playbackState]); // Ensure it checks playback state correctly
 
   return (
-    <LinearGradient
+      <LinearGradient
       colors={['#a34c0d', '#592804', '#241001', '#000000']}
       style={{ flex: 1 }}
     >
@@ -214,10 +215,6 @@ const HomeScreen = () => {
                   <Text className="text-white text-xs">{item.artist}</Text>
                 </View>
               </View>
-
-
-
-
               <Image
                 source={images.option}
                 style={{ width: 18, height: 18, tintColor: '#bababa' }}
@@ -248,11 +245,13 @@ const HomeScreen = () => {
                   source={{ uri: songsList[currentIndex].artwork }}
                   style={{ width: 50, height: 50, borderRadius: 5 }}
                 />
-                <View style={{ marginLeft: 10 }}>
-                  <Text style={{ color: 'white' }}>
+                <View className="ml-[10]">
+                  <Text
+                  className="text-white"
+                   >
                     {songsList[currentIndex].title}
                   </Text>
-                  <Text style={{ color: 'white', fontSize: 10 }}>
+                  <Text className="text-white text-xs">
                     {songsList[currentIndex].artist}
                   </Text>
                 </View>
@@ -280,9 +279,22 @@ const HomeScreen = () => {
             />
           </TouchableOpacity>
         </TouchableOpacity>
+     
+      <SongPlayer
+        isVisible={isVisible}
+        songsList={songsList}
+        currentIndex={currentIndex}
+        playbackState={playbackState}
+        progress={progress}
+        onChange={(index) => setCurrentIndex(index)} 
+        onClose={() => setIsVisible(false)} 
+      />
       </ScrollView>
+     
+      
     </LinearGradient>
   );
 };
+
 
 export default HomeScreen;
