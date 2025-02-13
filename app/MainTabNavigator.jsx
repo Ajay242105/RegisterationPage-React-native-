@@ -1,7 +1,7 @@
 
+import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, Ionicons, AntDesign, EvilIcons, MaterialIcons, MaterialCommunityIcons, FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { NavigationIndependentTree } from "@react-navigation/native";
+import { Entypo, Ionicons, AntDesign, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import SearchScreen from "./screens/SearchScreen";
 import LibraryScreen from "./screens/LibraryScreen";
 import PremiumScreen from "./screens/PremiumScreen";
@@ -9,7 +9,7 @@ import HomeScreen from "./screens/HomeScreen";
 
 const Tab = createBottomTabNavigator();
 
-function BottomTabs() {
+function MainTabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -43,7 +43,7 @@ function BottomTabs() {
             ),
         }}
       />
-        <Tab.Screen
+      <Tab.Screen
         name="Search"
         component={SearchScreen}
         options={{
@@ -60,7 +60,7 @@ function BottomTabs() {
       />
       <Tab.Screen
         name="Library"
-        component={LibraryScreen} 
+        component={LibraryScreen}
         options={{
           tabBarLabel: "Your Library",
           headerShown: false,
@@ -75,7 +75,7 @@ function BottomTabs() {
       />
       <Tab.Screen
         name="Premium"
-        component={PremiumScreen} 
+        component={PremiumScreen}
         options={{
           tabBarLabel: "Premium",
           headerShown: false,
@@ -88,19 +88,10 @@ function BottomTabs() {
             ),
         }}
       />
-
+      
     </Tab.Navigator>
   );
 }
 
-function Navigation() {
-  return (
-    <NavigationIndependentTree>
-      <BottomTabs />
-    </NavigationIndependentTree>
-  );
-}
-
-
-export default Navigation;
-
+export default MainTabNavigator;
+ 

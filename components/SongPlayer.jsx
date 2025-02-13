@@ -22,9 +22,9 @@ const SongPlayer = ({
   }, [currentIndex]);
 
   useEffect(() => {
-    console.log(playbackState); 
+    console.log(playbackState);
   }, [playbackState]);
-  
+
 
   const format = seconds => {
     let mins = parseInt(seconds / 60)
@@ -45,8 +45,8 @@ const SongPlayer = ({
       }
     }
   };
-  
-  
+
+
 
 
   const handlePrevious = async () => {
@@ -102,33 +102,22 @@ const SongPlayer = ({
           <TouchableOpacity onPress={handlePrevious}>
             <Image source={images.previous} style={{ width: 35, height: 35, tintColor: 'white' }} />
           </TouchableOpacity>
-         
+
           <TouchableOpacity
             onPress={handlePlayPause}
             className="flex items-center justify-center"
           >
-            {playbackState.state === State.Playing ? (
-              <Image
-                source={images.pause}
-                style={{
-                  width: 45,
-                  height: 45,
-                  marginLeft: 10,
-                  marginRight: 10,
-                  tintColor: '#3ad934',
-                }}
-              />
-            ) : (
-              <Image
-                source={images.playbutton}
-                style={{
-                  width: 45,
-                  height: 45,
-                  marginLeft: 10,
-                  marginRight: 10,
-                }}
-              />
-            )}
+            
+
+            <Image
+              source={
+                playbackState.state === State.Playing
+                  ? images.pause
+                  : images.play
+              }
+              style={{ width: 35, height: 35, tintColor: 'white' }}
+            />
+
           </TouchableOpacity>
           <TouchableOpacity onPress={handleNext}>
             <Image source={images.next} style={{ width: 35, height: 35, tintColor: 'white' }} />
