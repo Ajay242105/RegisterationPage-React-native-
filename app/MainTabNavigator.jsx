@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo, Ionicons, AntDesign, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
@@ -29,7 +28,7 @@ function MainTabNavigator() {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
         options={{
           tabBarLabel: "HomeScreen",
@@ -59,7 +58,7 @@ function MainTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Library"
+        name="LibraryScreen"
         component={LibraryScreen}
         options={{
           tabBarLabel: "Your Library",

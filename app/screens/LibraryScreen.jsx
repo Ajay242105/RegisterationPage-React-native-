@@ -188,6 +188,7 @@ const HomeScreen = () => {
         <FlatList
           className="mt-2"
           data={songsList}
+          showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               className="w-full h-12 flex-row justify-between pl-5 pr-5 mt-2.5"
@@ -223,7 +224,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
           )}
         />
-
+        <View>
         <FloatingMusicPlayer
           songsList={songsList}
           currentIndex={currentIndex}
@@ -231,9 +232,12 @@ const HomeScreen = () => {
           onPressPlayPause={handlePlayPause}
           onPressVisible={() => setIsVisible(true)}
         />
+        </View>       
+   
+       
       </ScrollView>
 
-      {/* Render SongPlayer here */}
+     
       <SongPlayer
         isVisible={isVisible}
         songsList={songsList}
