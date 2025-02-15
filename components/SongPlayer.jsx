@@ -5,7 +5,6 @@ import Slider from '@react-native-community/slider';
 import TrackPlayer, { State } from 'react-native-track-player';
 import { images } from '../constants';
 
-
 const SongPlayer = ({
   songsList,
   currentIndex,

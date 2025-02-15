@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo, Ionicons, AntDesign, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
-import SearchScreen from "./screens/SearchScreen";
-import LibraryScreen from "./screens/LibraryScreen";
-import PremiumScreen from "./screens/PremiumScreen";
-import HomeScreen from "./screens/HomeScreen";
+import HomeScreen from './HomeScreen';
+import LibraryScreen from './LibraryScreen';
+import SearchScreen from './SearchScreen';
+import PremiumScreen from './PremiumScreen';
+
+
 
 const Tab = createBottomTabNavigator();
 
@@ -93,4 +95,3 @@ function MainTabNavigator() {
 }
 
 export default MainTabNavigator;
- 
