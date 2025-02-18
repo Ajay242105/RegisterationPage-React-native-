@@ -75,7 +75,7 @@ const LibraryScreen = () => {
           <StatusBar translucent backgroundColor="transparent" />
 
 
-          <TouchableOpacity className="mt-5 ml-5" onPress={() => navigation.navigate('HomeScreen')}>
+          <TouchableOpacity className="mt-5 ml-5">
             <Image
               source={images.left}
               style={{
@@ -87,7 +87,6 @@ const LibraryScreen = () => {
               }}
             />
           </TouchableOpacity>
-          
 
           <View className="w-[90%] self-center mt-5 flex-row">
             <View className="w-[85%] h-9 bg-[#b06a41] rounded flex-row pl-4 items-center">
@@ -231,14 +230,31 @@ const LibraryScreen = () => {
               </TouchableOpacity>
             )}
           />
-        
+          <View>
+            <FloatingMusicPlayer
+              songsList={songsList}
+              currentIndex={currentIndex}
+              playbackState={playbackState}
+              onPressPlayPause={handlePlayPause}
+              onPressVisible={() => setIsVisible(true)}
+            />
+          </View>
 
 
         </ScrollView>
 
 
-      
+        <SongPlayer
+          isVisible={isVisible}
+          songsList={songsList}
+          currentIndex={currentIndex}
+          playbackState={playbackState}
+          progress={progress}
+          onChange={(index) => setCurrentIndex(index)}
+          onClose={() => setIsVisible(false)}
+        />
       </LinearGradient>
+    // </Modal>
   );
 };
 

@@ -36,36 +36,33 @@ import { songsList } from '../constants/Songs';
 import MainTabNavigator from './screens/MainTabNavigator';
 
 function Navigation() {
-  // TrackPlayer's playback state and progress
-  const playbackState = usePlaybackState();
-  const progress = useProgress();
-  
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+ const [currentIndex, setCurrentIndex] = useState(0);
+   const playbackState = usePlaybackState();
+   const progress = useProgress();
+   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Initialize the TrackPlayer and add songs
-    const setupPlayer = async () => {
-      try {
-        await TrackPlayer.setupPlayer();
-        await TrackPlayer.updateOptions({
-          capabilities: [
-            TrackPlayer.Capability.Play,
-            TrackPlayer.Capability.Pause,
-            TrackPlayer.Capability.SkipToNext,
-            TrackPlayer.Capability.SkipToPrevious,
-            TrackPlayer.Capability.Stop,
-          ],
-          compactCapabilities: [TrackPlayer.Capability.Play, TrackPlayer.Capability.Pause],
-        });
-        await TrackPlayer.add(songsList);
-      } catch (error) {
-        console.log('Error setting up player', error);
-      }
-    };
-
-    setupPlayer();
-  }, []);
+     setupPlayer();
+   }, []);
+ 
+   const setupPlayer = async () => {
+     try {
+       await TrackPlayer.setupPlayer();
+       await TrackPlayer.updateOptions({
+         capabilities: [
+           Capability.Play,
+           Capability.Pause,
+           Capability.SkipToNext,
+           Capability.SkipToPrevious,
+           Capability.Stop,
+         ],
+         compactCapabilities: [Capability.Play, Capability.Pause],
+       });
+       await TrackPlayer.add(songsList);
+     } catch (e) {
+       console.log(e);
+     }
+   };
 
   const handlePlayPause = async () => {
     if (playbackState === State.Playing) {
@@ -76,32 +73,42 @@ function Navigation() {
     }
   };
 
+   useEffect(() => {
+      if (State.Playing === playbackState) {
+        if (progress.position.toFixed(0) === progress.duration.toFixed(0)) {
+          if (currentIndex < songsList.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+          }
+        }
+      }
+    }, [progress, currentIndex, playbackState]);
+
   return (
     <View className="flex-1">
       <StatusBar />
 
-      {/* Floating Music Player */}
-      <FloatingMusicPlayer
-        songsList={songsList}
-        currentIndex={currentIndex}
-        playbackState={playbackState}
-        onPressPlayPause={handlePlayPause}
-        onPressVisible={() => setIsVisible(true)}
-      />
+       
+                  <FloatingMusicPlayer
+                    songsList={songsList}
+                    currentIndex={currentIndex}
+                    playbackState={playbackState}
+                    onPressPlayPause={handlePlayPause}
+                    onPressVisible={() => setIsVisible(true)}
+                  />
 
       {/* Main Tab Navigator */}
       <MainTabNavigator />
 
       {/* Song Player */}
       <SongPlayer
-        isVisible={isVisible}
-        songsList={songsList}
-        currentIndex={currentIndex}
-        playbackState={playbackState}
-        progress={progress}
-        onChange={(index) => setCurrentIndex(index)}
-        onClose={() => setIsVisible(false)}
-      />
+          isVisible={isVisible}
+          songsList={songsList}
+          currentIndex={currentIndex}
+          playbackState={playbackState}
+          progress={progress}
+          onChange={(index) => setCurrentIndex(index)}
+          onClose={() => setIsVisible(false)}
+        />
     </View>
   );
 }
